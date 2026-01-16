@@ -6,7 +6,7 @@
  * @return {object}
  */
 function convertToObject(sourceString) {
-  const result = {};
+  const styleObject = {};
   const words = sourceString.split(';');
 
   words.forEach((word) => {
@@ -15,11 +15,14 @@ function convertToObject(sourceString) {
     if (trimmed) {
       const [key, value] = trimmed.split(':');
 
-      result[key.trim()] = value.trim();
+      if (typeof key === 'undefined' || typeof value === 'undefined') {
+        return;
+      }
+      styleObject[key.trim()] = value.trim();
     }
   });
 
-  return result;
+  return styleObject;
 }
 
 module.exports = convertToObject;
